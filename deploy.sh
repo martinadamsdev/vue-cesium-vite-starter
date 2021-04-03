@@ -15,12 +15,15 @@ cd dist
 git init
 git add -A
 git commit -m 'deploy'
-
+git branch -M main
 # if you are deploying to https://<USERNAME>.github.io
 # git push -f git@github.com:<USERNAME>/<USERNAME>.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
-# git push -f git@github.com:martinageradams/vite-cesium-app.git main:gh-pages
-git push -f git@gitee.com:martinageradams/vite-vue-cesium-app.git main:gh-pages
+git push -f git@github.com:martinageradams/vite-vue-cesium-app.git main:pages
+git push -f git@gitee.com:martinageradams/vite-vue-cesium-app.git main:pages
 cd -
+git add .
+git commit -m 'deploy'
+git push
