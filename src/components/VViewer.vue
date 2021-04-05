@@ -97,7 +97,7 @@ export default {
 
       return await viewer.scene.primitives.add(
         Model.fromGltf({
-          url: "vue-cesium-vite-app/model/man.glb",
+          url: "model/man.glb",
           modelMatrix,
           // minimumPixelSize: 0.0,
         })
