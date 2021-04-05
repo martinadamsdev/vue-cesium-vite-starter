@@ -6,6 +6,7 @@ import viteCompression from 'vite-plugin-compression'
 export default () => {
   return {
     base: 'vite-vue-cesium-app',
+    open: true,
     plugins: [vue(), viteCompression()]
   }
 }

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "cesium": "^1.80.0",
+    "jszip": "^3.6.0",
     "vue": "^3.0.5"
   },
   "devDependencies": {
