@@ -6,7 +6,7 @@ export default function(viewer, model) {
       case 'ArrowUp':
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(0.01, 0, 0))
+          const translation = Matrix4.fromTranslation(new Cartesian3(0.1, 0, 0))
           Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
           firstPersonCamera(viewer, model)
         }
@@ -14,7 +14,7 @@ export default function(viewer, model) {
       case 'ArrowLeft':
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(0, 0.01, 0))
+          const translation = Matrix4.fromTranslation(new Cartesian3(0, 0.1, 0))
           Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
           firstPersonCamera(viewer, model)
         }
@@ -22,7 +22,7 @@ export default function(viewer, model) {
       case 'ArrowRight':
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(0, -0.01, 0))
+          const translation = Matrix4.fromTranslation(new Cartesian3(0, -0.1, 0))
           Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
           firstPersonCamera(viewer, model)
         }
@@ -30,7 +30,7 @@ export default function(viewer, model) {
       case 'ArrowDown':
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(-0.01, 0, 0))
+          const translation = Matrix4.fromTranslation(new Cartesian3(-0.1, 0, 0))
           Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
           firstPersonCamera(viewer, model)
         }
