@@ -166,5 +166,6 @@ export default {
 
 .btn div {
   padding: 0 5px;
+  cursor: pointer;
 }
 </style>
