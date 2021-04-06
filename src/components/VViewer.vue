@@ -34,6 +34,19 @@
         </svg>
       </a>
     </div>
+    <div @click="resetCamera">
+      <a
+        aria-label="martinageradams"
+        title="Gitee"
+        href="https://gitee.com/martinageradams/vue-cesium-vite-app"
+      ><svg
+          height="20"
+          version="1.1"
+          width="35"
+          aria-hidden="true"
+        >
+          <text x="0" y="16" fill="black">国内</text>
+        </svg></a></div>
   </div>
 </template>
 
@@ -143,7 +156,7 @@ export default {
   display: flex;
   justify-content: center;
   top: 20px;
-  left: calc((100% - 306px) / 2);
+  left: calc((100% - 416px) / 2);
   height: 20px;
   padding: 5px;
   line-height: 20px;
