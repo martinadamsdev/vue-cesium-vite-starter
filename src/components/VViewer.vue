@@ -1,10 +1,11 @@
 <template>
   <div id="v-viewer"></div>
   <div class="btn">
-    <div @click="firstPersonCamera()">第一人称</div>
-    <div @click="thirdPersonCamera">第三人称</div>
+    <div @click="firstPerson">第一人称</div>
+    <div @click="thirdPerson">第三人称</div>
     <div @click="freeRoaming">自由漫游</div>
-    <div @click="pathRoaming()">路径漫游</div>
+    <!-- <div @click="pathRoaming()">路径漫游</div> -->
+    <div @click="resetCamera">解除锁定</div>
   </div>
 </template>
 
@@ -31,29 +32,30 @@ import {
   SampledPositionProperty,
   Ellipsoid,
 } from "cesium";
+import {
+  initRoamingModel,
+  changeDefaultCamera,
+  freeRoaming,
+  firstPersonCamera,
+  thirdPersonCamera
+} from "../utils/roam";
 var center;
 export default {
   setup() {
     onMounted(async () => {
       window.viewer = init3d();
-      window.camera = viewer.camera;
       // 开发测试工具
       // 发版需要注释掉
       viewer.extend(viewerCesiumInspectorMixin);
       viewer._cesiumWidget._creditContainer.style.display = "none";
-      const roam = await initRoamingModel();
-      when(roam.readyPromise).then((model) => {
-        model.activeAnimations.addAll({
-          multiplier: 0.5,
-          loop: ModelAnimationLoop.REPEAT,
-        });
+      window.model = await initRoamingModel(viewer, {
+        position: new Cartesian3.fromDegrees(110, 40, 0),
+        url: "model/man.glb",
+      });
 
-        // 获取模型中心点
-        center = Matrix4.multiplyByPoint(
-          model.modelMatrix,
-          model.boundingSphere.center,
-          new Cartesian3()
-        );
+      model.readyPromise.then((model) => {
+        freeRoaming(viewer, model);
+        firstPersonCamera(viewer, model);
       });
     });
 
@@ -87,115 +89,21 @@ export default {
       });
     };
 
-    /**
-     * 初始化漫游模型
-     */
-    const initRoamingModel = async () => {
-      const modelMatrix = Transforms.eastNorthUpToFixedFrame(
-        Cartesian3.fromDegrees(118, 40, 0.0)
-      );
+    const firstPerson = () => {
+      firstPersonCamera(viewer, model);
+    }
+    const thirdPerson = () => {
+      thirdPersonCamera(viewer, model);
+    }
 
-      return await viewer.scene.primitives.add(
-        Model.fromGltf({
-          url: "model/man.glb",
-          modelMatrix,
-          // minimumPixelSize: 0.0,
-        })
-      );
-    };
-
-    /**
-     * 第一人称视角
-     */
-    const firstPersonCamera = () => {
-      openOrCloseDefaultCamera(false);
-      camera.setView({
-        destination: center,
-        orientation: {
-          heading: CesiumMath.toRadians(90.0),
-          pitch: 0.0,
-          roll: 0.0,
-        },
-      });
-
-      camera.moveUp(0.8);
-      camera.moveForward(0.5);
-    };
-
-    /**
-     * 第三人称视角
-     */
-    const thirdPersonCamera = () => {
-      openOrCloseDefaultCamera(false);
-      camera.setView({
-        destination: center,
-        orientation: {
-          heading: CesiumMath.toRadians(90.0),
-          pitch: 0.0,
-          roll: 0.0,
-        },
-      });
-
-      camera.moveUp(20);
-      camera.moveBackward(10);
-    };
-
-    /**
-     * 相机默认控制
-     */
-    const openOrCloseDefaultCamera = (status) => {
-      const cameraController = viewer.scene.screenSpaceCameraController;
-      // disable the default event handlers
-      cameraController.enableRotate = status;
-      cameraController.enableTranslate = status;
-      cameraController.enableZoom = status;
-      cameraController.enableTilt = status;
-      cameraController.enableLook = status;
-    };
-
-    /**
-     * 自由漫游
-     */
-    const freeRoaming = () => {
-      // 键盘事件监听
-      //   document.addEventListener("keydown", (e) => {
-      //     switch (e.key) {
-      //       case "ArrowUp":
-      //         if (e.shiftKey) {
-      //         } else {
-      //         }
-      //         break;
-      //       case "ArrowLeft":
-      //         if (e.shiftKey) {
-      //         } else {
-      //         }
-      //         break;
-      //       case "ArrowRight":
-      //         if (e.shiftKey) {
-      //         } else {
-      //         }
-      //         break;
-      //       case "ArrowDown":
-      //         if (e.shiftKey) {
-      //         } else {
-      //         }
-      //         break;
-      //       default:
-      //     }
-      //   });
-    };
-
-    /**
-     * 路径漫游
-     */
-    const pathRoaming = () => {
-      // 加载路径数据
-      // 
+    const resetCamera = () => {
+      changeDefaultCamera(viewer, true)
     }
 
     return {
-      firstPersonCamera,
-      thirdPersonCamera,
+      firstPerson,
+      thirdPerson,
+      resetCamera
     };
   },
 };

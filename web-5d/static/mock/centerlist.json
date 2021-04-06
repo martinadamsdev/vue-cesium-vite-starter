@@ -1,0 +1,14 @@
+{
+    "tableData":[
+    {
+      "id": 1,
+      "loaction": "北京",
+      "flieName": "文件1"
+    },
+    {
+      "id": 2,
+      "loaction": "上海",
+      "flieName": "文件2"
+    }
+  ]
+}

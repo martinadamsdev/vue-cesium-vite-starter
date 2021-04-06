@@ -1,0 +1,44 @@
+@bg-color: rgba(21, 24, 45, 1);
+@height: 40px;
+@title-size: 16px;
+@text-size: 14px;
+@icon-color: #fff;
+@icon-size: 16px;
+
+/deep/.create-btn{
+  margin-bottom: 0;
+}
+
+// 重置表格的间距 让内容紧凑一些
+/deep/.el-table td, /deep/.el-table th{
+  padding: 5px 0
+}
+/deep/.el-table th{
+  font-weight: 600;
+  // color: #606266;
+}
+// 重置一些按钮 输入框的字体
+/deep/.el-button--info, /deep/.el-input__inner, /deep/.el-button, /deep/.uploader-btn{
+  font-family:Helvetica,Tahoma,Arial,Sans-serif;
+}
+/deep/.el-form-item__content{
+  line-height: 35px;
+}
+// 重置input框的高度
+/deep/.el-form-item__content .el-input__inner{
+  height: 35px;
+  line-height: 35px;
+}
+/deep/.laberItem .el-form-item__label{
+  color:#fff;
+}
+/deep/.el-pagination{
+  margin-top: 10px;
+}
+/deep/.el-pagination__total,.el-pagination__jump{
+  color: #fff;
+}
+.el-message-box__wrapper .el-message-box__content>div{
+  display: inline-block;
+  padding-left: 10px;
+}
