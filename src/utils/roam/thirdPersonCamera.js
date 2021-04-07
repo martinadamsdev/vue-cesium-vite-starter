@@ -1,11 +1,9 @@
 import { Math as CesiumMath, Cartesian3, Matrix4 } from "cesium";
-import changeDefaultCamera from "./changeDefaultCamera";
+
 /**
  * 第三人称视角
  */
 export default function (viewer, model) {
-  // 禁止相机默认行为
-  changeDefaultCamera(viewer, false);
   // 获取相机
   const camera = viewer.camera;
   // 获取模型中心点

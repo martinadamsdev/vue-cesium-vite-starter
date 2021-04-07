@@ -5,6 +5,7 @@ import thirdPersonCamera from "./thirdPersonCamera";
 export default function(viewer, model, mode, cartesian3) {
   // 矩阵平移
   matrixTranslation(model.modelMatrix, cartesian3);
+  
   if (mode === 1) {
     firstPersonCamera(viewer, model);
   }
@@ -13,4 +14,3 @@ export default function(viewer, model, mode, cartesian3) {
     thirdPersonCamera(viewer, model);
   }
 }
-15130647860

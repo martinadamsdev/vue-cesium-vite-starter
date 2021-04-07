@@ -25,16 +25,10 @@ export default function(viewer, options) {
   )
   model.readyPromise.then((model) => {
     model.activeAnimations.addAll({
-      multiplier: 1,
+      multiplier: 1.5,
       loop: ModelAnimationLoop.REPEAT
     })
   })
 
   return model
-  // // 获取模型中心点
-  // center = Matrix4.multiplyByPoint(
-  //   model.modelMatrix,
-  //   model.boundingSphere.center,
-  //   new Cartesian3()
-  // )
 }

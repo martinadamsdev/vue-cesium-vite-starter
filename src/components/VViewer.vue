@@ -3,9 +3,9 @@
   <div class="btn">
     <div @click="freeRoam(1)">第一人称</div>
     <div @click="freeRoam(3)">第三人称</div>
-    <div>自由漫游</div>
+    <div @click="freeRoam(1)">自由漫游</div>
     <div>路径漫游</div>
-    <div>解除锁定</div>
+    <div @click="resetCamera">解除锁定</div>
     <div>
       <a
         aria-label="martinageradams"
@@ -67,10 +67,8 @@ import {
 } from "cesium";
 import {
   initRoamingModel,
-  // changeDefaultCamera,
+  changeDefaultCamera,
   freeRoaming,
-  firstPersonCamera,
-  thirdPersonCamera,
 } from "../utils/roam";
 var center;
 export default {
@@ -87,7 +85,11 @@ export default {
         url: "model/man.glb",
       });
 
-      model.readyPromise.then((model) => {});
+      model.readyPromise.then((model) => {
+        // 默认
+        // 第一人称自由漫游
+        freeRoam(1)
+      });
     });
 
     /**
@@ -124,12 +126,17 @@ export default {
       freeRoaming(viewer, model, mode);
     };
 
-    // const resetCamera = () => {
-    //   changeDefaultCamera(viewer, true);
+    // const pathRoam = (mode) => {
+    //   freeRoaming(viewer, model, mode);
     // };
+
+    const resetCamera = () => {
+      changeDefaultCamera(viewer.scene.screenSpaceCameraController, true)
+    }
 
     return {
       freeRoam,
+      resetCamera
     };
   },
 };
