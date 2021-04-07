@@ -1,23 +1,18 @@
 <template>
   <div id="v-viewer"></div>
   <div class="btn">
-    <div @click="firstPerson">第一人称</div>
-    <div @click="thirdPerson">第三人称</div>
-    <div @click="freeRoaming">自由漫游</div>
-    <!-- <div @click="pathRoaming()">路径漫游</div> -->
-    <div @click="resetCamera">解除锁定</div>
-    <div @click="resetCamera">
+    <div @click="freeRoam(1)">第一人称</div>
+    <div @click="freeRoam(3)">第三人称</div>
+    <div>自由漫游</div>
+    <div>路径漫游</div>
+    <div>解除锁定</div>
+    <div>
       <a
         aria-label="martinageradams"
         title="GitHub"
         href="https://github.com/martinageradams/vue-cesium-vite-app"
       >
-        <svg
-          height="20"
-          version="1.1"
-          width="35"
-          aria-hidden="true"
-        >
+        <svg height="20" version="1.1" width="35" aria-hidden="true">
           <text x="0" y="16" fill="black">Star</text>
         </svg>
         <svg
@@ -34,19 +29,16 @@
         </svg>
       </a>
     </div>
-    <div @click="resetCamera">
+    <div>
       <a
         aria-label="martinageradams"
         title="Gitee"
         href="https://gitee.com/martinageradams/vue-cesium-vite-app"
-      ><svg
-          height="20"
-          version="1.1"
-          width="35"
-          aria-hidden="true"
-        >
+        ><svg height="20" version="1.1" width="35" aria-hidden="true">
           <text x="0" y="16" fill="black">国内</text>
-        </svg></a></div>
+        </svg></a
+      >
+    </div>
   </div>
 </template>
 
@@ -55,34 +47,35 @@ import { onMounted } from "vue";
 // import JSZip from "jszip";
 import {
   Viewer,
-  Cesium3DTileset,
-  Matrix4,
-  when,
-  Transforms,
-  ModelAnimationLoop,
-  Model,
-  Math as CesiumMath,
+  // Cesium3DTileset,
+  // Matrix4,
+  // when,
+  // Transforms,
+  // ModelAnimationLoop,
+  // Model,
+  // Math as CesiumMath,
   Cartesian3,
-  Cartographic,
-  viewerCesiumInspectorMixin,
-  FeatureDetection,
-  Color,
-  HeadingPitchRoll,
-  HeadingPitchRange,
-  PolylineGlowMaterialProperty,
-  SampledPositionProperty,
-  Ellipsoid,
+  // Cartographic,
+  // viewerCesiumInspectorMixin,
+  // FeatureDetection,
+  // Color,
+  // HeadingPitchRoll,
+  // HeadingPitchRange,
+  // PolylineGlowMaterialProperty,
+  // SampledPositionProperty,
+  // Ellipsoid,
 } from "cesium";
 import {
   initRoamingModel,
-  changeDefaultCamera,
+  // changeDefaultCamera,
   freeRoaming,
   firstPersonCamera,
   thirdPersonCamera,
 } from "../utils/roam";
 var center;
 export default {
-  setup() {
+  setup(props, context) {
+    console.log(props.data, context.data);
     onMounted(async () => {
       window.viewer = init3d();
       // 开发测试工具
@@ -94,10 +87,7 @@ export default {
         url: "model/man.glb",
       });
 
-      model.readyPromise.then((model) => {
-        freeRoaming(viewer, model);
-        firstPersonCamera(viewer, model);
-      });
+      model.readyPromise.then((model) => {});
     });
 
     /**
@@ -130,21 +120,16 @@ export default {
       });
     };
 
-    const firstPerson = () => {
-      firstPersonCamera(viewer, model);
-    };
-    const thirdPerson = () => {
-      thirdPersonCamera(viewer, model);
+    const freeRoam = (mode) => {
+      freeRoaming(viewer, model, mode);
     };
 
-    const resetCamera = () => {
-      changeDefaultCamera(viewer, true);
-    };
+    // const resetCamera = () => {
+    //   changeDefaultCamera(viewer, true);
+    // };
 
     return {
-      firstPerson,
-      thirdPerson,
-      resetCamera,
+      freeRoam,
     };
   },
 };

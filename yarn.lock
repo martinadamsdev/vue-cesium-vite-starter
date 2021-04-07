@@ -385,6 +385,11 @@ jszip@^3.6.0:
     readable-stream "~2.3.6"
     set-immediate-shim "~1.0.1"
 
+keyboardjs@^2.6.4:
+  version "2.6.4"
+  resolved "https://registry.npm.taobao.org/keyboardjs/download/keyboardjs-2.6.4.tgz#28dccd9787c8f37e7c017df2f87294ca21143436"
+  integrity sha1-KNzNl4fI8358AX3y+HKUyiEUNDY=
+
 lie@~3.3.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/lie/-/lie-3.3.0.tgz#dcf82dee545f46074daf200c7c1c5a08e0f40f6a"

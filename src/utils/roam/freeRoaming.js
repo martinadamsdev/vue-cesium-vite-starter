@@ -1,41 +1,77 @@
-import { Cartesian3, Matrix4 } from 'cesium'
-import firstPersonCamera from './firstPersonCamera'
-export default function(viewer, model) {
-  document.addEventListener('keydown', (e) => {
+import updatePosition from "./updatePosition";
+import firstPersonCamera from "./firstPersonCamera";
+import thirdPersonCamera from "./thirdPersonCamera";
+import keyboard from "keyboardjs";
+export default function (viewer, model, mode) {
+  keyboard._listeners = [];
+  console.log(window);
+  keyboard.bind(["up", "down", "left", "right"], keyBoard);
+  if (mode === 1) {
+    firstPersonCamera(viewer, model);
+  }
+
+  if (mode === 3) {
+    thirdPersonCamera(viewer, model);
+  }
+
+  function keyBoard(e) {
     switch (e.key) {
-      case 'ArrowUp':
+      case "ArrowUp":
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(0.1, 0, 0))
-          Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
-          firstPersonCamera(viewer, model)
+          updatePosition(viewer, model, mode, { x: 0.5, y: 0.0, z: 0.0 });
         }
-        break
-      case 'ArrowLeft':
+        break;
+      case "ArrowLeft":
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(0, 0.1, 0))
-          Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
-          firstPersonCamera(viewer, model)
+          updatePosition(viewer, model, mode, { x: 0.0, y: 0.5, z: 0.0 });
         }
-        break
-      case 'ArrowRight':
+        break;
+      case "ArrowRight":
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(0, -0.1, 0))
-          Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
-          firstPersonCamera(viewer, model)
+          updatePosition(viewer, model, mode, { x: 0.0, y: -0.5, z: 0.0 });
         }
-        break
-      case 'ArrowDown':
+        break;
+      case "ArrowDown":
         if (e.shiftKey) {
         } else {
-          const translation = Matrix4.fromTranslation(new Cartesian3(-0.1, 0, 0))
-          Matrix4.multiply(model.modelMatrix, translation, model.modelMatrix)
-          firstPersonCamera(viewer, model)
+          updatePosition(viewer, model, mode, { x: -0.5, y: 0.0, z: 0.0 });
         }
-        break
+        break;
       default:
     }
-  })
+  }
+
+  function keyBoard2(e) {
+    // document.removeEventListener("keydown", keyBoard1, true);
+    switch (e.key) {
+      case "ArrowUp":
+        if (e.shiftKey) {
+        } else {
+          updatePosition(viewer, model, mode, { x: 0.5, y: 0.0, z: 0.0 });
+        }
+        break;
+      case "ArrowLeft":
+        if (e.shiftKey) {
+        } else {
+          updatePosition(viewer, model, mode, { x: 0.0, y: 0.5, z: 0.0 });
+        }
+        break;
+      case "ArrowRight":
+        if (e.shiftKey) {
+        } else {
+          updatePosition(viewer, model, mode, { x: 0.0, y: -0.5, z: 0.0 });
+        }
+        break;
+      case "ArrowDown":
+        if (e.shiftKey) {
+        } else {
+          updatePosition(viewer, model, mode, { x: -0.5, y: 0.0, z: 0.0 });
+        }
+        break;
+      default:
+    }
+  }
 }
