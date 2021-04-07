@@ -33,7 +33,7 @@
       <a
         aria-label="martinageradams"
         title="Gitee"
-        href="https://gitee.com/martinageradams/vue-cesium-vite-app"
+        href="https://martinageradams.gitee.io/vue-cesium-vite-app"
         ><svg height="20" version="1.1" width="35" aria-hidden="true">
           <text x="0" y="16" fill="black">国内</text>
         </svg></a
